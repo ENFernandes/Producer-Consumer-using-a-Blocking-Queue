@@ -13,10 +13,10 @@ public class Consumer implements Runnable {
     private String name;
 
     /**
-     * @param queue the blocking queue to consume elements from
+     * @param queue      the blocking queue to consume elements from
      * @param elementNum the number of elements to consume
      */
-    public Consumer(BQueue queue, int elementNum,String name) {
+    public Consumer(BQueue queue, int elementNum, String name) {
         this.queue = queue;
         this.elementNum = elementNum;
         this.name = name;
@@ -24,20 +24,18 @@ public class Consumer implements Runnable {
 
     @Override
     public void run() {
-
-            for (int i = 0; i < elementNum; i++) {
-                try {
-
-                    synchronized (queue) {
-                        System.out.println(getClass().getSimpleName()+" "+name + " "+ queue.poll());
-                        Thread.sleep(500);
+        for (int i = 0; i < elementNum; i++) {
+            try {
+                synchronized (queue) {
+                    System.out.println(getClass().getSimpleName() + " " + name + " " + queue.poll());
+                    if(queue.getSize() == 0){
+                        System.out.println("I'm the one who emptied the queue!!");
                     }
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
+        }
     }
-
 }
