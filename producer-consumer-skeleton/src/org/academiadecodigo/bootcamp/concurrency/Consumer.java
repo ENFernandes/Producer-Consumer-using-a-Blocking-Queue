@@ -29,7 +29,7 @@ public class Consumer implements Runnable {
                 synchronized (queue) {
                     System.out.println(getClass().getSimpleName() + " " + name + " " + queue.poll());
                     if(queue.getSize() == 0){
-                        System.out.println("I'm the one who emptied the queue!!");
+                        System.out.println("I'm the one who emptied the queue!!\n");
                     }
                 }
                 Thread.sleep(500);

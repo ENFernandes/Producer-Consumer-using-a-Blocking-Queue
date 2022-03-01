@@ -28,8 +28,8 @@ public class Producer implements Runnable {
         for (int i = 0; i < elementNum; i++) {
             try {
                 synchronized (queue) {
-                    System.out.println(getClass().getSimpleName() + " " + name);
-                    queue.offer(new Pizza());
+                    //getClass().getSimpleName() + " " + name
+                    System.out.println(queue.offer(new Pizza()) + " foi feita por " + Thread.currentThread().getName());
                     if(queue.getSize()== queue.getLimit()){
                         System.out.println("Cheio");
                     }

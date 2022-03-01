@@ -1,6 +1,5 @@
 package org.academiadecodigo.bootcamp.concurrency.bqueue;
 
-import com.apple.laf.AquaIcon;
 
 import java.util.*;
 
@@ -29,7 +28,7 @@ public class BQueue<T> {
      *
      * @param data the data to add to the queue
      */
-    public synchronized void offer(T data) {
+    public synchronized T offer(T data) {
         while (queue.size() >= getLimit()) {
             try {
                 wait();
@@ -39,6 +38,7 @@ public class BQueue<T> {
         }
         queue.offer(data);
         notifyAll();
+        return queue.peek();
     }
 
     /**
