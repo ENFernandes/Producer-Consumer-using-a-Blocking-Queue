@@ -9,27 +9,34 @@ import org.academiadecodigo.bootcamp.concurrency.bqueue.Pizza;
 public class Producer implements Runnable {
 
     private final BQueue<Pizza> queue;
+    private String name;
     private int elementNum;
 
     /**
      * @param queue the blocking queue to add elements to
      * @param elementNum the number of elements to produce
      */
-    public Producer(BQueue queue, int elementNum) {
+    public Producer(BQueue queue, int elementNum,String name) {
         this.queue = queue;
         this.elementNum = elementNum;
+        this.name=name;
     }
     @Override
     public void run() {
-        synchronized (queue) {
+
             for (int i = 0; i < elementNum; i++) {
                 try {
-                    queue.offer(new Pizza());
-                    Thread.sleep(1000);
+
+                    synchronized (queue) {
+                        System.out.println(getClass().getSimpleName()+" "+name);
+                        queue.offer(new Pizza());
+                        Thread.sleep(500);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }
+
     }
 }

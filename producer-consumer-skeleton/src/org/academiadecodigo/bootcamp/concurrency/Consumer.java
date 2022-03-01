@@ -10,28 +10,33 @@ public class Consumer implements Runnable {
 
     private final BQueue<Pizza> queue;
     private int elementNum;
+    private String name;
 
     /**
      * @param queue the blocking queue to consume elements from
      * @param elementNum the number of elements to consume
      */
-    public Consumer(BQueue queue, int elementNum) {
+    public Consumer(BQueue queue, int elementNum,String name) {
         this.queue = queue;
         this.elementNum = elementNum;
+        this.name = name;
     }
 
     @Override
     public void run() {
-        synchronized (queue) {
+
             for (int i = 0; i < elementNum; i++) {
                 try {
-                    System.out.println(queue.poll());
-                    Thread.sleep(1000);
+
+                    synchronized (queue) {
+                        System.out.println(getClass().getSimpleName()+" "+name + " "+ queue.poll());
+                        Thread.sleep(500);
+                    }
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        }
 
     }
 

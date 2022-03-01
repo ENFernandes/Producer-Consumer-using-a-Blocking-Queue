@@ -9,20 +9,20 @@ public class Main {
 
         BQueue<Pizza> queue= new BQueue<>(5);
 
-        Producer p1 = new Producer(queue,10);
+        Producer p1 = new Producer(queue,10,"p1");
         Thread t1 = new Thread(p1);
         t1.setName("p1");
 
 
-        Producer p2 = new Producer(queue,10);
+        Producer p2 = new Producer(queue,10,"p2");
         Thread t2 = new Thread(p2);
         t2.setName("p2");
 
-        Consumer c1 = new Consumer(queue, 10);
+        Consumer c1 = new Consumer(queue, 10,"c1");
         Thread t3 = new Thread(c1);
         t3.setName("c1");
 
-        Consumer c2 = new Consumer(queue, 10);
+        Consumer c2 = new Consumer(queue, 10,"c2");
         Thread t4 = new Thread(c2);
         t4.setName("c2");
 
